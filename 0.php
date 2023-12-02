@@ -1,9 +1,8 @@
 <?php
 
 // read 0.txt
-$fp = fopen("input/0.txt", "r");
-$contents = fread($fp, filesize("input/0.txt"));
-fclose($fp);
+$filepath = "input/0.txt";
+$contents = file_get_contents($filepath);
 
 $result = [];
 

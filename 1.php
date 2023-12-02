@@ -14,9 +14,8 @@ function getLastValidString($numbers, $currentString)
 }
 
 // read 1.txt
-$fp = fopen("input/1.txt", "r");
-$contents = fread($fp, filesize("input/1.txt"));
-fclose($fp);
+$filepath = "input/1.txt";
+$contents = file_get_contents($filepath);
 
 $result = [];
 
