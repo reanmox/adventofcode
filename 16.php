@@ -10,6 +10,7 @@ $directions = [
 $filepath = "input/16.txt";
 $map = [];
 $positions = [];
+$results = [];
 
 $contents = file_get_contents($filepath);
 $contents = explode("\n", $contents);
@@ -18,10 +19,21 @@ foreach ($contents as $y => $line) {
     $map[$y] = str_split($line);
 }
 
-enterPosition(0, 0, $directions["E"]);
+for ($x = 0; $x < count($map[0]); $x++) {
+    enterPosition($x, 0, $directions["S"]);
+    saveResult($x, 0);
+    enterPosition($x, count($map) - 1, $directions["N"]);
+    saveResult($x, count($map) - 1);
+}
+for ($y = 0; $y < count($map); $y++) {
+    enterPosition(0, $y, $directions["E"]);
+    saveResult(0, $y);
+    enterPosition(count($map[0]) - 1, $y, $directions["W"]);
+    saveResult(count($map[0]) - 1, $y);
+}
 
-echo print_r($positions, true);
-echo "Task 1: " . count($positions) . "\n";
+echo "Task 1: " . $results["0,0"] . "\n";
+echo "Task 2: " . max($results) . "\n";
 
 function enterPosition($x, $y, $direction)
 {
@@ -37,7 +49,7 @@ function enterPosition($x, $y, $direction)
         return;
     }
 
-    echo "Entering {$x},{$y} with direction {$k}\n";
+    // echo "Entering {$x},{$y} with direction {$k}\n";
     $value = $map[$y][$x];
 
     if ($value == '.') {
@@ -61,4 +73,11 @@ function enterPosition($x, $y, $direction)
             enterPosition($x + $direction2["x"], $y + $direction2["y"], $direction2);
         }
     }
+}
+
+function saveResult($x, $y)
+{
+    global $results, $positions;
+    $results["{$x},{$y}"] = count($positions);
+    $positions = [];
 }
