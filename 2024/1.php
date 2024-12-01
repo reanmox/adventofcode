@@ -23,3 +23,11 @@ for ($i = 0; $i < count($arr1); $i++) {
 }
 
 echo "Part 1: " . $sum . "\n";
+
+$arr2Count = array_count_values($arr2);
+$sum = 0;
+for ($i = 0; $i < count($arr1); $i++) {
+    $sum += $arr1[$i] * ($arr2Count[$arr1[$i]] ?? 0);
+}
+
+echo "Part 2: " . $sum . "\n";
